@@ -251,31 +251,26 @@ public class ChessGameEngine{
                 currentPiece.showLegalMoves( board );
                 squareClicked.setBackground( Color.GREEN );
                 firstClick = false;
+								return;
             }
-            else
-            {
-                if ( currentPiece != null ){
-                    JOptionPane.showMessageDialog(
-                        squareClicked,
-                        "You tried to pick up the other player's piece! "
-                            + "Get some glasses and pick a valid square.",
-                        "Illegal move",
-                        JOptionPane.ERROR_MESSAGE );
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(
-                        squareClicked,
-                        "You tried to pick up an empty square! "
-                            + "Get some glasses and pick a valid square.",
-                        "Illegal move",
-                        JOptionPane.ERROR_MESSAGE );
-                }
-            }
-        }
-        else
-        {
-            if ( pieceOnSquare == null ||
+						if ( currentPiece != null ){
+								JOptionPane.showMessageDialog(
+										squareClicked,
+										"You tried to pick up the other player's piece! "
+												+ "Get some glasses and pick a valid square.",
+										"Illegal move",
+										JOptionPane.ERROR_MESSAGE );
+								return;
+             }
+						JOptionPane.showMessageDialog(
+								squareClicked,
+								"You tried to pick up an empty square! "
+										+ "Get some glasses and pick a valid square.",
+								"Illegal move",
+								JOptionPane.ERROR_MESSAGE );
+                return;
+				}
+        if ( pieceOnSquare == null ||
                 !pieceOnSquare.equals( currentPiece ) ) // moving
             {
                 boolean moveSuccessful =
@@ -285,10 +280,10 @@ public class ChessGameEngine{
                         squareClicked.getColumn() );
                 if ( moveSuccessful ){
                     checkGameConditions();
+										firstClick = true;
+										return;
                 }
-                else
-                {
-                    int row = squareClicked.getRow();
+                int row = squareClicked.getRow();
                     int col = squareClicked.getColumn();
                     JOptionPane.showMessageDialog(
                         squareClicked,
@@ -299,14 +294,7 @@ public class ChessGameEngine{
                             + "and try using your brain this time!",
                         "Invalid move",
                         JOptionPane.ERROR_MESSAGE );
-                }
-                firstClick = true;
             }
-            else
-            // user is just unselecting the current piece
-            {
-                firstClick = true;
-            }
-        }
+				firstClick = true;
     }
 }
